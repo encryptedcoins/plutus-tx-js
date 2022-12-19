@@ -62,7 +62,6 @@ library
       base64                                 -any,
       aeson                                  -any,
       bytestring                             -any,
-      cborg                                  -any,
       containers                             -any,
       data-default                           -any,
       deepseq                                -any,
