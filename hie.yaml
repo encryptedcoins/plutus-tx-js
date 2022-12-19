@@ -1,0 +1,4 @@
+cradle:
+  cabal:
+    - path: "src"
+      component: "plutus-tx-js:lib:plutus-tx-js"
