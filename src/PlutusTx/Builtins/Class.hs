@@ -20,6 +20,7 @@ import PlutusTx.Base (const, id, ($))
 import PlutusTx.Bool (Bool (..))
 import PlutusTx.Integer (Integer)
 import qualified Prelude as Haskell (String)
+import Data.ByteString (ByteString)
 
 {- Note [Fundeps versus type families in To/FromBuiltin]
 We could use a type family here to get the builtin representation of a type. After all, it's
@@ -75,6 +76,13 @@ instance ToBuiltin () BuiltinUnit where
     -- See Note [Strict conversions to/from unit]
     {-# INLINABLE toBuiltin #-}
     toBuiltin x = case x of () -> unitval
+
+instance FromBuiltin BuiltinByteString ByteString where
+    {-# INLINABLE fromBuiltin #-}
+    fromBuiltin (BuiltinByteString b) = b
+instance ToBuiltin ByteString BuiltinByteString where
+    {-# INLINABLE toBuiltin #-}
+    toBuiltin = BuiltinByteString
 
 {- Note [noinline hack]
 For some functions we have two conflicting desires:
