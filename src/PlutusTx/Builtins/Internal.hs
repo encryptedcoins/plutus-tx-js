@@ -149,7 +149,7 @@ BYTESTRING
 data BuiltinByteString = BuiltinByteString BS.ByteString
 
 instance Haskell.Show BuiltinByteString where
-    show (BuiltinByteString bs) = show bs
+    show (BuiltinByteString bs) = show . encodeHex $ bs
 instance Haskell.Eq BuiltinByteString where
     (==) (BuiltinByteString bs) (BuiltinByteString bs') = (==) bs bs'
 instance Haskell.Ord BuiltinByteString where
