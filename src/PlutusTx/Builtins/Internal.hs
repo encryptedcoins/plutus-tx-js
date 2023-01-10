@@ -13,7 +13,7 @@
 module PlutusTx.Builtins.Internal where
 
 import Control.DeepSeq (NFData)
-import Data.Aeson (ToJSON (..), FromJSON (..))
+import Data.Aeson (ToJSON (..), FromJSON (..), ToJSONKey, FromJSONKey)
 import qualified Data.ByteArray as BA
 import Data.ByteString (ByteString)
 import qualified Data.ByteString as BS
@@ -164,6 +164,8 @@ instance FromJSON BuiltinByteString where
     parseJSON v = do
         bs <- (decodeHex :: Text -> Maybe ByteString) <$> parseJSON v
         return $ BuiltinByteString $ fromJust bs
+instance ToJSONKey BuiltinByteString where
+instance FromJSONKey BuiltinByteString where
 instance BA.ByteArrayAccess BuiltinByteString where
     length (BuiltinByteString bs) = BA.length bs
     withByteArray (BuiltinByteString bs) = BA.withByteArray bs
