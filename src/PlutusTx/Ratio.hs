@@ -33,7 +33,6 @@ module PlutusTx.Ratio(
     , gcd
     ) where
 
-import qualified PlutusTx.Applicative as P
 import qualified PlutusTx.Base as P
 import qualified PlutusTx.Bool as P
 import qualified PlutusTx.Eq as P
@@ -44,7 +43,6 @@ import qualified PlutusTx.Ord as P
 
 import qualified PlutusTx.Builtins as Builtins
 
-import Control.Monad (guard)
 import Data.Aeson (FromJSON (parseJSON), ToJSON (toJSON), object, withObject, (.:))
 import qualified GHC.Real as Ratio
 import Prelude (Ord (..), Show, (*), error)
