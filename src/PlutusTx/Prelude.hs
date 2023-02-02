@@ -37,6 +37,7 @@ module PlutusTx.Prelude (
     quotient,
     remainder,
     even,
+    odd,
     -- * Maybe
     module Maybe,
     -- * Either

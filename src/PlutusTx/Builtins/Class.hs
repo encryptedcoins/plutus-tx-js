@@ -13,13 +13,9 @@ module PlutusTx.Builtins.Class where
 
 import PlutusTx.Builtins.Internal
 
-import Data.String (IsString (..))
-
-import qualified GHC.Magic as Magic
 import PlutusTx.Base (const, id, ($))
 import PlutusTx.Bool (Bool (..))
 import PlutusTx.Integer (Integer)
-import qualified Prelude as Haskell (String)
 import Data.ByteString (ByteString)
 
 {- Note [Fundeps versus type families in To/FromBuiltin]

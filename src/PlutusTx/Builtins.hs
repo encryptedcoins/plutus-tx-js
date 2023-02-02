@@ -39,7 +39,7 @@ module PlutusTx.Builtins (
                                 , toBuiltin
                                 ) where
 
-import PlutusTx.Base (const, uncurry)
+import PlutusTx.Base (const)
 import PlutusTx.Bool (Bool (..))
 import PlutusTx.Builtins.Class
 import PlutusTx.Builtins.Internal (BuiltinByteString (..))

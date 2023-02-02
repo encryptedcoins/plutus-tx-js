@@ -12,18 +12,12 @@
 -- Most users should not use this module directly, but rather use 'PlutusTx.Builtins'.
 module PlutusTx.Builtins.Internal where
 
-import Control.DeepSeq (NFData)
-import Data.Aeson (ToJSON (..), FromJSON (..), ToJSONKey, FromJSONKey)
 import qualified Data.ByteArray as BA
-import Data.ByteString (ByteString)
 import qualified Data.ByteString as BS
 import Data.Coerce (coerce)
-import Data.Maybe (fromMaybe, fromJust)
-import Data.Text (Text)
-import GHC.Generics (Generic)
 import PlutusTx.Utils (mustBeReplaced)
 import Prettyprinter (Pretty (..), viaShow)
-import Text.Hex (encodeHex, decodeHex)
+import Text.Hex (encodeHex)
 
 {-
 We do not use qualified import because the whole module contains off-chain code
@@ -158,14 +152,6 @@ instance Haskell.Semigroup BuiltinByteString where
     (<>) (BuiltinByteString bs) (BuiltinByteString bs') = BuiltinByteString $ (<>) bs bs'
 instance Haskell.Monoid BuiltinByteString where
     mempty = BuiltinByteString mempty
-instance ToJSON BuiltinByteString where
-    toJSON (BuiltinByteString bs) = toJSON $ encodeHex bs
-instance FromJSON BuiltinByteString where
-    parseJSON v = do
-        bs <- (decodeHex :: Text -> Maybe ByteString) <$> parseJSON v
-        return $ BuiltinByteString $ fromJust bs
-instance ToJSONKey BuiltinByteString where
-instance FromJSONKey BuiltinByteString where
 instance BA.ByteArrayAccess BuiltinByteString where
     length (BuiltinByteString bs) = BA.length bs
     withByteArray (BuiltinByteString bs) = BA.withByteArray bs
