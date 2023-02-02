@@ -17,13 +17,15 @@ import qualified Data.ByteString as BS
 import Data.Coerce (coerce)
 import PlutusTx.Utils (mustBeReplaced)
 import Prettyprinter (Pretty (..), viaShow)
-import Text.Hex (encodeHex)
+import Text.Hex (encodeHex, Text, decodeHex)
 
 {-
 We do not use qualified import because the whole module contains off-chain code
 which is replaced later with on-chain implementations by the plutus-tx-plugin.
 -}
 import Prelude as Haskell
+import Data.Aeson (ToJSON (..), FromJSON (..), ToJSONKey, FromJSONKey)
+import Data.ByteString (ByteString)
 
 {- Note [Builtin name definitions]
 The builtins here have definitions so they can be used in off-chain code too.
@@ -152,6 +154,14 @@ instance Haskell.Semigroup BuiltinByteString where
     (<>) (BuiltinByteString bs) (BuiltinByteString bs') = BuiltinByteString $ (<>) bs bs'
 instance Haskell.Monoid BuiltinByteString where
     mempty = BuiltinByteString mempty
+instance ToJSON BuiltinByteString where
+    toJSON (BuiltinByteString bs) = toJSON $ encodeHex bs
+instance FromJSON BuiltinByteString where
+    parseJSON v = do
+        bs <- (decodeHex :: Text -> Maybe ByteString) <$> parseJSON v
+        maybe (fail "A valid hex string is expected!") (return . BuiltinByteString) bs
+instance ToJSONKey BuiltinByteString where
+instance FromJSONKey BuiltinByteString where
 instance BA.ByteArrayAccess BuiltinByteString where
     length (BuiltinByteString bs) = BA.length bs
     withByteArray (BuiltinByteString bs) = BA.withByteArray bs
