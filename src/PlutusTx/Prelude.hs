@@ -59,7 +59,10 @@ module PlutusTx.Prelude (
     unsafeRatio,
     ratio,
     fromInteger,
-    round
+    round,
+    -- * Data
+    fromBuiltin,
+    toBuiltin
     ) where
 
 import Data.String (IsString (..))
@@ -68,8 +71,8 @@ import PlutusTx.Base as Base
 import PlutusTx.Bool as Bool
 import PlutusTx.Builtins (BuiltinByteString, Integer, toBuiltin, appendByteString, 
                           consByteString, emptyByteString, equalsByteString,
-                          error, greaterThanByteString, indexByteString,
-                          lengthOfByteString, lessThanByteString, sliceByteString)
+                          error, fromBuiltin, greaterThanByteString, indexByteString,
+                          lengthOfByteString, lessThanByteString, sliceByteString, toBuiltin)
 import qualified PlutusTx.Builtins as Builtins
 import PlutusTx.Either as Either
 import PlutusTx.Enum as Enum
