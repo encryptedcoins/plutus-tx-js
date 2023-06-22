@@ -14,6 +14,7 @@ module PlutusTx.List (
     (!!),
     head,
     take,
+    drop,
     tail,
     nub,
     nubBy,
